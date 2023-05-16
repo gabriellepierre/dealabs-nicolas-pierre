@@ -20,5 +20,6 @@
 ###< symfony/phpunit-bridge ###
 
 ###> PERSO ###
+.docker/data/
 /migrations/*
 ###< PERSO ###
