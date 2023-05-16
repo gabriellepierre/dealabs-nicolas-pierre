@@ -1,0 +1,4 @@
+172.18.0.1 - - [16/May/2023:06:19:43 +0000] "GET / HTTP/1.1" 500 90056 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
+172.18.0.1 - - [16/May/2023:06:20:47 +0000] "GET / HTTP/1.1" 404 96248 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
+172.18.0.1 - - [16/May/2023:06:20:53 +0000] "GET /_wdt/297fbc HTTP/1.1" 200 3214 "http://localhost:8081/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
+172.18.0.1 - - [16/May/2023:06:21:00 +0000] "GET /_profiler/297fbc?panel=logger HTTP/1.1" 200 146428 "http://localhost:8081/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"

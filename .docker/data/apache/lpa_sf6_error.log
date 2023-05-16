@@ -1,0 +1,1 @@
+[Tue May 16 06:19:43.644977 2023] [proxy_fcgi:error] [pid 17:tid 139950167160576] [client 172.18.0.1:52466] AH01071: Got error 'PHP message: 2023-05-16T08:19:43+02:00 [critical] Uncaught Exception: Unable to write in the "cache" directory (/var/www/lpa_sf6/var/cache/dev).'
