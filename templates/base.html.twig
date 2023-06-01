@@ -13,7 +13,69 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
     <body>
+        {% block navbar %}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="h-100">
+                    <a class="navbar-brand" href="{{ path('home') }}">
+                        <img class="h-100" src="/images/dealabs-nav-logo.png" alt="Dealabs">
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Bons plans</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Code promo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Gratuit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Discussions</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Menu
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-search"></i></div>
+                                </span>
+                                <input class="form-control" type="search" placeholder="Recherche...">
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="btn btn-secondary" href="#">
+                                <i class="bi bi-person"></i>
+                                Connexion
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-info" href="#">
+                                <i class="bi bi-plus-lg"></i>
+                                Poster...
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        {% endblock %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

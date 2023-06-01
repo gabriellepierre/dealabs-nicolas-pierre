@@ -1,0 +1,8 @@
+:root {
+	--navbar-height: 50px;
+}
+
+.navbar{
+    width: auto;
+	height: var(--navbar-height);
+}
