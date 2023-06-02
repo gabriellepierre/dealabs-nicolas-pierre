@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% set titre = "Tous les deals" %}
+
+{% block body %}
+     {% for bonPlan in bonsPlans %}
+          {{ include('home/_case-bon-plan.html.twig') }}
+     {% endfor %}
+{% endblock %}

@@ -34,5 +34,8 @@ docker exec -it -u root lpa_sf6_php bash
 # Puis
 > php bin/console d:m:m
 
+# Charger les fixtures :
+> php bin/console doctrine:fixtures:load
+
 # Supprimer les migrations s'il y a des erreurs mais il faut refaire les 3 commandes précédentes pour regénérer le fichier de migrations.
 
