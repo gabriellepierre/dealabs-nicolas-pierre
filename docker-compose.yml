@@ -1,7 +1,11 @@
 version: '3'
 services:
     apache:
-        build: .docker/apache
+        # build: .docker/apache
+        build:
+          context: .docker/apache
+          dockerfile: Dockerfile
+
         container_name: lpa_sf6_apache
         ports:
           - "8081:80"
