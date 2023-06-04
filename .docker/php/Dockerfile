@@ -10,6 +10,14 @@ RUN apt-get update \
     libpng-dev \
     sudo
 
+##NODE + YARN
+RUN apt-get install -y npm
+RUN npm install -g n
+RUN n 18.16.0
+RUN npm install --global yarn
+# https://symfony.com/doc/current/frontend/encore/installation.html
+##NODE + YARN
+
 RUN apt install -y libldap2-dev
 
 RUN docker-php-ext-install pdo pdo_mysql zip
@@ -21,7 +29,7 @@ COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
-	mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer
 
 RUN wget --no-check-certificate https://phar.phpunit.de/phpunit-9.5.26.phar && \
     mv phpunit*.phar phpunit.phar && \
@@ -29,11 +37,11 @@ RUN wget --no-check-certificate https://phar.phpunit.de/phpunit-9.5.26.phar && \
     mv phpunit.phar /usr/local/bin/phpunit
 
 RUN	echo "deb https://deb.nodesource.com/node_9.x jessie main" >> /etc/apt/sources.list.d/nodejs.list && \
-	wget -nv -O -  https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-	echo "deb-src https://deb.nodesource.com/node_9.x jessie main" >> /etc/apt/sources.list.d/nodejs.list && \
+    wget -nv -O -  https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    echo "deb-src https://deb.nodesource.com/node_9.x jessie main" >> /etc/apt/sources.list.d/nodejs.list && \
     apt-get update && \
-	apt-get install -y --force-yes nodejs && \
-	rm -f /etc/apt/sources.list.d/nodejs.list
+    apt-get install -y --force-yes nodejs && \
+    rm -f /etc/apt/sources.list.d/nodejs.list
 
 RUN groupadd dev -g 999
 RUN useradd dev -g dev -d /home/dev -m
