@@ -1,27 +1,54 @@
-<div class="container pb-5 mt-n2 mt-md-n3">
+<div class="container">
     <div class="row">
-        <div class="col-xl-9 col-md-8">
-            {# <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Products</span><a class="font-size-sm" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left" style="width: 1rem; height: 1rem;"><polyline points="15 18 9 12 15 6"></polyline></svg>Continue shopping</a></h2> #}
+        {# <a href="#"> #}
             <!-- Item-->
-            <div class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
-                <div class="media d-block d-sm-flex text-center text-sm-left">
-                    <a class="cart-item-thumb mx-auto mr-sm-4" href="#">
-                        {{ bonPlan.images | first }}
-                    </a>
-                    <div class="media-body pt-3">
-                        <h3 class="product-card-title font-weight-semibold border-0 pb-0">
-                            <a href="#">{{ bonPlan.nom }}</a>
-                        </h3>
-                        <div class="font-size-sm"><span class="text-muted mr-2">- {{ bonPlan.degreAttractivite }} +</div>
-                        <div class="font-size-sm"><span class="text-muted mr-2">{{ bonPlan.dateExpiration|date("d/m/Y") }} min</div>
-                        <div class="font-size-lg text-primary pt-2">
-                            {{ bonPlan.prixReduction }} € | {{ bonPlan.prixHabituel }} € | Bons Plans <a href="#">[...]</a>
+            <div class="d-flex justify-content-start my-2 p-3 border">
+                <div>
+                    {# {{ bonPlan.images | first }} #}
+                    <img class="rounded-2" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png"/>
+                </div>
+                
+                <div class="p-2 w-100">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-inline-flex border border-secondary rounded">
+                            <button type="button" class="btn btn-outline-primary btn-sm border-0">-</button>
+                            <div class="p-1">
+                                <span class="text-danger"><strong>{{ bonPlan.degreAttractivite }}°</strong></span>
+                            </div>
+                            <button type="button" class="btn btn-outline-danger btn-sm border-0">+</button>
                         </div>
-                        <div class="font-size-sm"><span class="text-muted mr-2"></span>{{ bonPlan.description }}</div>
-                        <div class="font-size-sm"><span class="text-muted mr-2"></span>{{ bonPlan.postePar }}</div>
+                        <div>
+                            {% if bonPlan.dateExpiration is not null %}
+                                <span class="text-secondary"><i class="bi bi-hourglass-bottom"></i> Expire le {{ bonPlan.dateExpiration|date("d/m/Y") }}</span>
+                            {% endif %}
+                            <span class="text-secondary"><i class="bi bi-activity"></i> Posté le {{ bonPlan.datePublication|date("d M") }}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5><strong>{{ bonPlan.nom }}</strong></h5>
+
+                        <div class="h5">
+                            <span class="text-danger"><strong>{{ bonPlan.prixReduction }} €</strong></span> 
+                            <span class="text-secondary"><del>{{ bonPlan.prixHabituel }} €</del></span> 
+                            <span>-XX%</span>
+                            {% if bonPlan.fraisLivraison is not null %}
+                                <span class="text-secondary"><i class="bi bi-truck"></i> {{ bonPlan.fraisLivraison }} €</span>
+                            {% endif %}
+                            <span class="text-secondary">| Bons Plans <a class="text-info" href="#">[...]</a></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        {{ bonPlan.description }}
+                    </div>
+
+                    <div>
+                        <span><strong>{{ bonPlan.postePar }}</strong></span>
+                        {# RAJOUTER LES 3 BOUTONS #}
                     </div>
                 </div>
             </div>
-        </div>
+        {# </a> #}
     </div>
 </div>
