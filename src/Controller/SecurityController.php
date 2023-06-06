@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route(path: '/security', name: 'security_')]
 class SecurityController extends AbstractController
@@ -28,15 +30,24 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/registration', name: 'registration')]
-    public function registration(Request $request)
-    {
+    public function registration(
+        Request $request, 
+        EntityManagerInterface $manager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
 
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('security/registration.html.twig', [

@@ -16,6 +16,10 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        {% if form is defined %}
+			{% form_theme form 'bootstrap_5_layout.html.twig' %}
+		{% endif %}
     </head>
 
     <body>
