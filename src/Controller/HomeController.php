@@ -10,13 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-
-    private EntityManagerInterface $manager;
-
-    public function __construct(EntityManagerInterface $manager)
-    {
-        $this->manager = $manager;
-    }
+    public function __construct(
+        private EntityManagerInterface $manager
+    ){}
 
     #[Route('/', name: 'home')]
     public function index(): Response
