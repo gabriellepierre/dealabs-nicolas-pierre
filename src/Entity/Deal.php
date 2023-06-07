@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\BonPlanRepository;
+use App\Repository\DealRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: BonPlanRepository::class)]
-class BonPlan
+#[ORM\Entity(repositoryClass: DealRepository::class)]
+class Deal
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,11 +25,11 @@ class BonPlan
     #[ORM\Column(nullable: true)]
     private ?int $degreAttractivite = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bonsPlans')]
+    #[ORM\ManyToOne(inversedBy: 'deals')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $postePar = null;
 
-    #[ORM\OneToMany(mappedBy: 'bonPlan', targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'deal', targetEntity: Image::class, orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -47,7 +47,7 @@ class BonPlan
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lien = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'bonsPlans')]
+    #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'deals')]
     private Collection $categories;
 
     #[ORM\Column(nullable: true)]
@@ -124,7 +124,7 @@ class BonPlan
     {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
-            $image->setBonPlan($this);
+            $image->setDeal($this);
         }
 
         return $this;
@@ -134,8 +134,8 @@ class BonPlan
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($image->getBonPlan() === $this) {
-                $image->setBonPlan(null);
+            if ($image->getDeal() === $this) {
+                $image->setDeal(null);
             }
         }
 
@@ -214,7 +214,7 @@ class BonPlan
     {
         if (!$this->categories->contains($category)) {
             $this->categories->add($category);
-            $category->addBonsPlan($this);
+            $category->addDeal($this);
         }
 
         return $this;
@@ -223,7 +223,7 @@ class BonPlan
     public function removeCategory(Categorie $category): self
     {
         if ($this->categories->removeElement($category)) {
-            $category->removeBonsPlan($this);
+            $category->removeDeal($this);
         }
 
         return $this;

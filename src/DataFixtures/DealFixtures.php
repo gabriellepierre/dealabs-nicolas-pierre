@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\BonPlan;
+use App\Entity\Deal;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -10,13 +10,13 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraints\Date;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class BonPlanFixtures extends Fixture implements OrderedFixtureInterface
+class DealFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         for($i=1; $i<=20; $i++){
-            $bonPlan = new BonPlan();
-            $bonPlan->setNom("Nom".$i)
+            $deal = new Deal();
+            $deal->setNom("Nom".$i)
                 ->setDateExpiration(new DateTime('now'))
                 ->setDatePublication(new DateTime('now'))
                 ->setDegreAttractivite($i)
@@ -27,7 +27,7 @@ class BonPlanFixtures extends Fixture implements OrderedFixtureInterface
                 ->setPrixHabituel(50)
                 ->setPrixReduction(25);
 
-            $manager->persist($bonPlan);
+            $manager->persist($deal);
         }
         $manager->flush();
     }

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\BonPlan;
+use App\Entity\Deal;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         return $this->render('home/index.html.twig', [
-            "bonsPlans" => $this->manager->getRepository(BonPlan::class)->findAll(),
+            "deals" => $this->manager->getRepository(Deal::class)->findAll(),
         ]);
     }
 }

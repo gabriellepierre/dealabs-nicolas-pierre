@@ -18,7 +18,7 @@ class Image
 
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?BonPlan $bonPlan = null;
+    private ?Deal $deal = null;
 
     public function getId(): ?int
     {
@@ -37,14 +37,14 @@ class Image
         return $this;
     }
 
-    public function getBonPlan(): ?BonPlan
+    public function getDeal(): ?Deal
     {
-        return $this->bonPlan;
+        return $this->deal;
     }
 
-    public function setBonPlan(?BonPlan $bonPlan): self
+    public function setDeal(?Deal $deal): self
     {
-        $this->bonPlan = $bonPlan;
+        $this->deal = $deal;
 
         return $this;
     }

@@ -4,7 +4,7 @@
             <!-- Item-->
             <div class="d-flex justify-content-start my-2 p-3 border">
                 <div>
-                    {# {{ bonPlan.images | first }} #}
+                    {# {{ deal.images | first }} #}
                     <img class="rounded-2" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png"/>
                 </div>
                 
@@ -13,38 +13,38 @@
                         <div class="d-inline-flex border border-secondary rounded">
                             <button type="button" class="btn btn-outline-primary btn-sm border-0">-</button>
                             <div class="p-1">
-                                <span class="text-danger"><strong>{{ bonPlan.degreAttractivite }}°</strong></span>
+                                <span class="text-danger"><strong>{{ deal.degreAttractivite }}°</strong></span>
                             </div>
                             <button type="button" class="btn btn-outline-danger btn-sm border-0">+</button>
                         </div>
                         <div>
-                            {% if bonPlan.dateExpiration is not null %}
-                                <span class="text-secondary"><i class="bi bi-hourglass-bottom"></i> Expire le {{ bonPlan.dateExpiration|date("d/m/Y") }}</span>
+                            {% if deal.dateExpiration is not null %}
+                                <span class="text-secondary"><i class="bi bi-hourglass-bottom"></i> Expire le {{ deal.dateExpiration|date("d/m/Y") }}</span>
                             {% endif %}
-                            <span class="text-secondary"><i class="bi bi-activity"></i> Posté le {{ bonPlan.datePublication|date("d M") }}</span>
+                            <span class="text-secondary"><i class="bi bi-activity"></i> Posté le {{ deal.datePublication|date("d M") }}</span>
                         </div>
                     </div>
 
                     <div>
-                        <h5><strong>{{ bonPlan.nom }}</strong></h5>
+                        <h5><strong>{{ deal.nom }}</strong></h5>
 
                         <div class="h5">
-                            <span class="text-danger"><strong>{{ bonPlan.prixReduction }} €</strong></span> 
-                            <span class="text-secondary"><del>{{ bonPlan.prixHabituel }} €</del></span> 
+                            <span class="text-danger"><strong>{{ deal.prixReduction }} €</strong></span> 
+                            <span class="text-secondary"><del>{{ deal.prixHabituel }} €</del></span> 
                             <span>-XX%</span>
-                            {% if bonPlan.fraisLivraison is not null %}
-                                <span class="text-secondary"><i class="bi bi-truck"></i> {{ bonPlan.fraisLivraison }} €</span>
+                            {% if deal.fraisLivraison is not null %}
+                                <span class="text-secondary"><i class="bi bi-truck"></i> {{ deal.fraisLivraison }} €</span>
                             {% endif %}
                             <span class="text-secondary">| Bons Plans <a class="text-info" href="#">[...]</a></span>
                         </div>
                     </div>
 
                     <div>
-                        {{ bonPlan.description }}
+                        {{ deal.description }}
                     </div>
 
                     <div>
-                        <span><strong>{{ bonPlan.postePar }}</strong></span>
+                        <span><strong>{{ deal.postePar }}</strong></span>
                         {# RAJOUTER LES 3 BOUTONS #}
                     </div>
                 </div>

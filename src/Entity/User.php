@@ -33,12 +33,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, unique: true)]
     private ?string $username = null;
 
-    #[ORM\OneToMany(mappedBy: 'postePar', targetEntity: BonPlan::class)]
-    private Collection $bonsPlans;
+    #[ORM\OneToMany(mappedBy: 'postePar', targetEntity: Deal::class)]
+    private Collection $deals;
 
     public function __construct()
     {
-        $this->bonsPlans = new ArrayCollection();
+        $this->deals = new ArrayCollection();
     }
 
 
@@ -137,29 +137,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, BonPlan>
+     * @return Collection<int, Deal>
      */
-    public function getBonsPlans(): Collection
+    public function getDeals(): Collection
     {
-        return $this->bonsPlans;
+        return $this->deals;
     }
 
-    public function addBonsPlan(BonPlan $bonsPlan): self
+    public function addDeal(Deal $deal): self
     {
-        if (!$this->bonsPlans->contains($bonsPlan)) {
-            $this->bonsPlans->add($bonsPlan);
-            $bonsPlan->setPostePar($this);
+        if (!$this->deals->contains($deal)) {
+            $this->deals->add($deal);
+            $deal->setPostePar($this);
         }
 
         return $this;
     }
 
-    public function removeBonsPlan(BonPlan $bonsPlan): self
+    public function removeDeal(Deal $deal): self
     {
-        if ($this->bonsPlans->removeElement($bonsPlan)) {
+        if ($this->deals->removeElement($deal)) {
             // set the owning side to null (unless already changed)
-            if ($bonsPlan->getPostePar() === $this) {
-                $bonsPlan->setPostePar(null);
+            if ($deal->getPostePar() === $this) {
+                $deal->setPostePar(null);
             }
         }
 

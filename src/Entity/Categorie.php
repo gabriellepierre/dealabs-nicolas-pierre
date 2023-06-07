@@ -18,12 +18,12 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: BonPlan::class, inversedBy: 'categories')]
-    private Collection $bonsPlans;
+    #[ORM\ManyToMany(targetEntity: Deal::class, inversedBy: 'categories')]
+    private Collection $deals;
 
     public function __construct()
     {
-        $this->bonsPlans = new ArrayCollection();
+        $this->deals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,25 +44,25 @@ class Categorie
     }
 
     /**
-     * @return Collection<int, BonPlan>
+     * @return Collection<int, Deal>
      */
-    public function getBonsPlans(): Collection
+    public function getDeals(): Collection
     {
-        return $this->bonsPlans;
+        return $this->deals;
     }
 
-    public function addBonsPlan(BonPlan $bonsPlan): self
+    public function addDeal(Deal $deal): self
     {
-        if (!$this->bonsPlans->contains($bonsPlan)) {
-            $this->bonsPlans->add($bonsPlan);
+        if (!$this->deals->contains($deal)) {
+            $this->deals->add($deal);
         }
 
         return $this;
     }
 
-    public function removeBonsPlan(BonPlan $bonsPlan): self
+    public function removeDeal(Deal $deal): self
     {
-        $this->bonsPlans->removeElement($bonsPlan);
+        $this->deals->removeElement($deal);
 
         return $this;
     }
