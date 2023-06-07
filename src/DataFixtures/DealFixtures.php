@@ -16,10 +16,11 @@ class DealFixtures extends Fixture implements OrderedFixtureInterface
     {
         for($i=1; $i<=20; $i++){
             $deal = new Deal();
+            $date = (new DateTime('now'))->modify("+ ". rand(0,10) ." days");
             $deal->setNom("Nom".$i)
-                ->setDateExpiration(new DateTime('now'))
-                ->setDatePublication(new DateTime('now'))
-                ->setDegreAttractivite($i)
+                ->setDateExpiration($date)
+                ->setDatePublication($date)
+                ->setDegreAttractivite($i * 15)
                 ->setDescription("Description".$i)
                 ->setFraisLivraison($i)
                 ->setLien("http://lien.fr")

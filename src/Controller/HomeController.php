@@ -21,4 +21,12 @@ class HomeController extends AbstractController
             "deals" => $this->manager->getRepository(Deal::class)->findAll(),
         ]);
     }
+
+    #[Route('/hot', name: 'hot')]
+    public function hot(): Response
+    {
+        return $this->render('home/index.html.twig', [
+            "deals" => $this->manager->getRepository(Deal::class)->getHotDealsTries(),
+        ]);
+    }
 }
