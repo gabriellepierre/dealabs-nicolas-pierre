@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% set titre = "Ajouter un bon plan" %}
+
+{% block body %}
+	{{ form_start(form) }}
+
+        <div class="form-error">
+            {{ form_errors(form)}}
+        </div>
+
+        <div class="detail-box">
+            <div class="card">
+                <div class="card-body">
+                    {{ form_row(form.lien, { "label": "Lien du deal (Facultatif)" }) }}
+                    {{ form_row(form.prixReduction, { "label": "Prix (Facultatif)" }) }}
+                    {{ form_row(form.prixHabituel, { "label": "Prix habituel (Facultatif)" }) }}
+                    {{ form_row(form.fraisLivraison, { "label": "Frais de port (Facultatif)" }) }}
+                    {# {{ form_row(form.codePromo) }} #}
+                    {{ form_row(form.nom, { "label": "Titre" }) }}
+                    {{ form_row(form.description, { "label": "Description" }) }}
+                    {{ form_row(form.categories, { "label": "Groupes" }) }}
+
+                    <button class="btn btn-primary" type="submit">Valider</button>
+                </div>
+            </div>
+        </div>
+
+    {{ form_end(form) }}	
+{% endblock %}

@@ -21,8 +21,8 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
             $user = new User();
             $user->setUsername("username".$i)
                 ->setEmail("email".$i."@com")
-                ->setPassword("test");
-            $this->hashUserPassword($user);
+                ->setPassword($this->hashUserPassword($user,"test"));
+            ;
 
             $manager->persist($user);
         }
@@ -30,9 +30,9 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
     }
 
         
-    public function hashUserPassword(User $user): void
+    public function hashUserPassword(User $user, string $password): string
     {
-        $this->userPasswordHasherInterface->hashPassword($user, $user->getPassword());
+        return $this->userPasswordHasherInterface->hashPassword($user, $password);
     }
 
     /**
