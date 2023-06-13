@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Deal;
-use App\Form\BonPlanType;
+use App\Form\DealType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,8 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/bonplan', name: 'bonPlan_')]
-class BonPlanController extends AbstractController
+#[Route('/deal', name: 'deal_')]
+class DealController extends AbstractController
 {
 
     public function __construct(
@@ -26,7 +26,7 @@ class BonPlanController extends AbstractController
     {
         $deal = new Deal();
 
-        $form = $this->createForm(BonPlanType::class, $deal);
+        $form = $this->createForm(DealType::class, $deal);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -39,7 +39,7 @@ class BonPlanController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('bonPlan/add.html.twig', [
+        return $this->render('deal/add.html.twig', [
             'form' => $form->createView()
         ]);
     }
