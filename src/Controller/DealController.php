@@ -8,24 +8,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class DealController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $manager
     ){}
 
     #[Route('/', name: 'home')]
+    #[Route('/deal/index', name: 'deal_index')]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('deal/index.html.twig', [
             "deals" => $this->manager->getRepository(Deal::class)->findAll(),
         ]);
     }
 
-    #[Route('/hot', name: 'hot')]
+    #[Route('/deal/hot', name: 'deal_hot')]
     public function hot(): Response
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('deal/index.html.twig', [
             "deals" => $this->manager->getRepository(Deal::class)->getHotDealsTries(),
         ]);
     }
