@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\CodePromo;
+use App\Form\CodePromoType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,6 +33,32 @@ class CodePromoController extends AbstractController
     {
         return $this->render('codePromo/index.html.twig', [
             "deals" => $this->manager->getRepository(CodePromo::class)->getHotCodesPromoTries(),
+        ]);
+    }
+
+    #[Route('/add', name: 'add')]
+    public function add(Request $request): Response
+    {
+        $codePromo = new CodePromo();
+
+        $form = $this->createForm(CodePromoType::class, $codePromo);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $codePromo->setPostePar($this->getUser());
+            $codePromo->setDatePublication(new DateTime('now'));
+
+            if($codePromo->getDegreAttractivite() == null){
+                $codePromo->setDegreAttractivite(0);
+            }
+
+            $this->manager->persist($codePromo);
+            $this->manager->flush();
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('codePromo/add.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

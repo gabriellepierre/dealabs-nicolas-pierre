@@ -47,6 +47,9 @@ abstract class Deal
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'deals')]
     private Collection $categories;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $codePromo = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -195,6 +198,18 @@ abstract class Deal
         if ($this->categories->removeElement($category)) {
             $category->removeDeal($this);
         }
+
+        return $this;
+    }
+
+    public function getCodePromo(): ?string
+    {
+        return $this->codePromo;
+    }
+
+    public function setCodePromo(?string $codePromo): self
+    {
+        $this->codePromo = $codePromo;
 
         return $this;
     }

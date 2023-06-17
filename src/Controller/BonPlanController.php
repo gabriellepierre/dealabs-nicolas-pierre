@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\BonPlan;
+use App\Form\BonPlanType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,13 +40,17 @@ class BonPlanController extends AbstractController
     {
         $bonPlan = new BonPlan();
 
-        $form = $this->createForm(DealType::class, $bonPlan);
+        $form = $this->createForm(BonPlanType::class, $bonPlan);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
             $bonPlan->setPostePar($this->getUser());
             $bonPlan->setDatePublication(new DateTime('now'));
+
+            if($bonPlan->getDegreAttractivite() == null){
+                $bonPlan->setDegreAttractivite(0);
+            }
 
             $this->manager->persist($bonPlan);
             $this->manager->flush();
