@@ -1,10 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends '_layout/base.html.twig' %}
 {% set subnavbarDeal = true %}
 
 {% set titre = "Tous les deals" %}
 
 {% block body %}
      {% for deal in deals %}
-          {{ include('home/_case-deal.html.twig') }}
+          {% if deal is instanceOf("App\\Entity\\BonPlan") %}
+               {{ include('bonPlan/_case-bon-plan.html.twig') }}
+          {% elseif deal is instanceOf("App\\Entity\\CodePromo") %}
+               {{ include('codePromo/_case-code-promo.html.twig') }}
+          {% endif %}
      {% endfor %}
 {% endblock %}

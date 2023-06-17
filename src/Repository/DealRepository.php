@@ -38,14 +38,4 @@ class DealRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-
-
-    public function getHotDealsTries()
-    {
-        $query = $this->createQueryBuilder('deal');
-        $query->where("deal.degreAttractivite >= 100")
-            ->orderBy("deal.datePublication","ASC");
-        return $query->getQuery()->getResult();
-    }
 }

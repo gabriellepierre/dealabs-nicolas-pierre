@@ -9,7 +9,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DealRepository::class)]
-class Deal
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['bon_plan' => 'BonPlan', 'code_promo' => 'CodePromo'])]
+abstract class Deal
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,7 +20,7 @@ class Deal
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $titre = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datePublication = null;
@@ -38,20 +41,11 @@ class Deal
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $prixHabituel = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?float $prixReduction = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lien = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'deals')]
     private Collection $categories;
-
-    #[ORM\Column(nullable: true)]
-    private ?float $fraisLivraison = null;
 
     public function __construct()
     {
@@ -64,14 +58,14 @@ class Deal
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getTitre(): ?string
     {
-        return $this->nom;
+        return $this->titre;
     }
 
-    public function setNom(string $nom): self
+    public function setTitre(string $titre): self
     {
-        $this->nom = $nom;
+        $this->titre = $titre;
 
         return $this;
     }
@@ -166,30 +160,6 @@ class Deal
         return $this;
     }
 
-    public function getPrixHabituel(): ?float
-    {
-        return $this->prixHabituel;
-    }
-
-    public function setPrixHabituel(?float $prixHabituel): self
-    {
-        $this->prixHabituel = $prixHabituel;
-
-        return $this;
-    }
-
-    public function getPrixReduction(): ?float
-    {
-        return $this->prixReduction;
-    }
-
-    public function setPrixReduction(?float $prixReduction): self
-    {
-        $this->prixReduction = $prixReduction;
-
-        return $this;
-    }
-
     public function getLien(): ?string
     {
         return $this->lien;
@@ -225,18 +195,6 @@ class Deal
         if ($this->categories->removeElement($category)) {
             $category->removeDeal($this);
         }
-
-        return $this;
-    }
-
-    public function getFraisLivraison(): ?float
-    {
-        return $this->fraisLivraison;
-    }
-
-    public function setFraisLivraison(?float $fraisLivraison): self
-    {
-        $this->fraisLivraison = $fraisLivraison;
 
         return $this;
     }

@@ -9,7 +9,7 @@
                 </div>
                 
                 <div class="p-2 w-100">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between pb-2">
                         <div class="d-inline-flex border border-secondary rounded">
                             <button type="button" class="btn btn-outline-primary btn-sm border-0">-</button>
                             <div class="p-1">
@@ -26,7 +26,9 @@
                     </div>
 
                     <div>
-                        <h5><strong>{{ deal.nom }}</strong></h5>
+                        <h5>
+                            <strong>{{ deal.titre }}</strong>
+                        </h5>
 
                         <div class="h5">
                             <span class="text-danger"><strong>{{ deal.prixReduction }} €</strong></span> 
@@ -37,10 +39,10 @@
                             {% endif %}
                             <span class="text-secondary">| Bons Plans <a class="text-info" href="#">[...]</a></span>
                         </div>
-                    </div>
 
-                    <div>
-                        {{ deal.description }}
+                        <div class="pb-2">
+                            {{ deal.description }}
+                        </div>
                     </div>
 
                     <div>

@@ -1,0 +1,10 @@
+{% extends '_layout/base.html.twig' %}
+{% set subnavbarCodePromo = true %}
+
+{% set titre = "Tous les bons plans" %}
+
+{% block body %}
+     {% for deal in deals %}
+        {{ include('codePromo/_case-code-promo.html.twig') }}
+     {% endfor %}
+{% endblock %}

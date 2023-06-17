@@ -34,10 +34,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Bons plans</a>
+                            <a class="nav-link" href="{{ path('bonPlan_index') }}">Bons plans</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Code promo</a>
+                            <a class="nav-link" href="{{ path('codePromo_index') }}">Code promo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Gratuit</a>
@@ -82,7 +82,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ path('deal_add') }}" class="btn btn-info">
+                            <a href="{{ path('bonPlan_add') }}" class="btn btn-info">
                                 <i class="bi bi-plus-lg"></i> Poster...
                             </a>
                         </li>
@@ -94,41 +94,19 @@
 
 
         {% block subnavbar %}
-            {% if subnavbarDeal is defined %}
-                <nav class="border border-bottom">
-                    <ul class="d-flex flex-row navbar-nav">
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="{{ path("home") }}">A la une</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="{{ path("hot") }}">Hot</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="#">Nouveaux</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="#">Commentés</a>
-                        </li>
-                    </ul>
-                </nav>
-            {% elseif subnavbarAccount is defined %}
-                <nav class="border border-bottom">
-                    <ul class="d-flex flex-row navbar-nav">
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="{{ path("user_account") }}">Aperçu</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="{{ path("user_deals") }}">Deals (?)</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="{{ path("user_dealsSaved") }}">Deals sauvegardés (?)</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a class="nav-link" href="{{ path("user_alerts") }}">Alertes (?)</a>
-                        </li>
-                    </ul>
-                </nav>
-            {% endif %}
+            <nav class="border border-bottom">
+                <ul class="d-flex flex-row navbar-nav">
+                    {% if subnavbarDeal is defined %}
+                        {{ include('_layout/_sub-deal.html.twig') }}
+                    {% elseif subnavbarAccount is defined %}
+                        {{ include('_layout/_sub-account.html.twig') }}
+                    {% elseif subnavbarCodePromo is defined %}
+                        {{ include('_layout/_sub-codePromo.html.twig') }}
+                    {% elseif subnavbarBonPlan is defined %}
+                        {{ include('_layout/_sub-bonPlan.html.twig') }}
+                    {% endif %}
+                </ul>
+            </nav>
         {% endblock %}
 
 
