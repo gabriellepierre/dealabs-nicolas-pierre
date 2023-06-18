@@ -5,10 +5,6 @@
 
 {% block body %}
      {% for deal in deals %}
-          {% if deal is instanceOf("App\\Entity\\BonPlan") %}
-               {{ include('bonPlan/_case-bon-plan.html.twig') }}
-          {% elseif deal is instanceOf("App\\Entity\\CodePromo") %}
-               {{ include('codePromo/_case-code-promo.html.twig') }}
-          {% endif %}
+          {{ include('deal/_case-deal.html.twig') }}
      {% endfor %}
 {% endblock %}

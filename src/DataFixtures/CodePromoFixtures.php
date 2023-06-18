@@ -14,18 +14,17 @@ class CodePromoFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager): void
     {
         for($i=1; $i<=20; $i++){
-            $bonPlan = new CodePromo();
+            $codePromo = new CodePromo();
             $date = (new DateTime('now'))->modify("+ ". rand(0,10) ." days");
-            $bonPlan->setTitre("CodePromo".$i)
+            $codePromo->setTitre("CodePromo".$i)
                 ->setDateExpiration($date)
                 ->setDatePublication($date)
-                ->setDegreAttractivite($i * 15)
                 ->setDescription("Description".$i)
                 ->setLien("http://lien.fr")
                 ->setPostePar($manager->getRepository(User::class)->findOneBy(["username" => "username1"]))
                 ->setTypeCodePromo($i % 3);
 
-            $manager->persist($bonPlan);
+            $manager->persist($codePromo);
         }
         $manager->flush();
     }
@@ -35,6 +34,6 @@ class CodePromoFixtures extends Fixture implements OrderedFixtureInterface
      */
     public function getOrder(): int
     {
-        return 10;
+        return 5;
     }
 }

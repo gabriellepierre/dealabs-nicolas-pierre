@@ -19,7 +19,6 @@ class BonPlanFixtures extends Fixture implements OrderedFixtureInterface
             $bonPlan->setTitre("BonPlan".$i)
                 ->setDateExpiration($date)
                 ->setDatePublication($date)
-                ->setDegreAttractivite($i * 15)
                 ->setDescription("Description".$i)
                 ->setFraisLivraison($i)
                 ->setLien("http://lien.fr")
@@ -37,6 +36,6 @@ class BonPlanFixtures extends Fixture implements OrderedFixtureInterface
      */
     public function getOrder(): int
     {
-        return 10;
+        return 5;
     }
 }

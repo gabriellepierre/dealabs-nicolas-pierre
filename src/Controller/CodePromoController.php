@@ -48,10 +48,6 @@ class CodePromoController extends AbstractController
             $codePromo->setPostePar($this->getUser());
             $codePromo->setDatePublication(new DateTime('now'));
 
-            if($codePromo->getDegreAttractivite() == null){
-                $codePromo->setDegreAttractivite(0);
-            }
-
             $this->manager->persist($codePromo);
             $this->manager->flush();
             return $this->redirectToRoute('home');

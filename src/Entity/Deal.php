@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\DealRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DealRepository;
+use App\Entity\UserDealInteraction;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: DealRepository::class)]
 #[ORM\InheritanceType('JOINED')]
@@ -24,9 +26,6 @@ abstract class Deal
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datePublication = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $degreAttractivite = null;
 
     #[ORM\ManyToOne(inversedBy: 'deals')]
     #[ORM\JoinColumn(nullable: false)]
@@ -50,11 +49,41 @@ abstract class Deal
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $codePromo = null;
 
+    #[ORM\OneToMany(mappedBy: 'deal', targetEntity: UserDealInteraction::class, orphanRemoval: true)]
+    private Collection $userDealInteractions;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->userDealInteractions = new ArrayCollection();
     }
+
+
+
+    /**
+     * Méthodes créées
+     */
+    public function getDegreAttractivite(): ?int
+    {
+        $degreAttractivite = 0;
+        foreach($this->userDealInteractions as $interaction){
+            $degreAttractivite += $interaction->getLiked();
+        }
+        return $degreAttractivite;
+    }
+
+    public function getUserDealInteraction(User $user): ?UserDealInteraction
+    {
+        foreach($this->userDealInteractions as $interaction){
+            if($interaction->getUser() === $user){
+                return $interaction;
+            }
+        }
+        return null;
+    }
+
+
 
     public function getId(): ?int
     {
@@ -81,18 +110,6 @@ abstract class Deal
     public function setDatePublication(?\DateTimeInterface $datePublication): self
     {
         $this->datePublication = $datePublication;
-
-        return $this;
-    }
-
-    public function getDegreAttractivite(): ?int
-    {
-        return $this->degreAttractivite;
-    }
-
-    public function setDegreAttractivite(?int $degreAttractivite): self
-    {
-        $this->degreAttractivite = $degreAttractivite;
 
         return $this;
     }
@@ -210,6 +227,36 @@ abstract class Deal
     public function setCodePromo(?string $codePromo): self
     {
         $this->codePromo = $codePromo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserDealInteraction>
+     */
+    public function getUserDealInteractions(): Collection
+    {
+        return $this->userDealInteractions;
+    }
+
+    public function addUserDealInteraction(UserDealInteraction $userDealInteraction): self
+    {
+        if (!$this->userDealInteractions->contains($userDealInteraction)) {
+            $this->userDealInteractions->add($userDealInteraction);
+            $userDealInteraction->setDeal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserDealInteraction(UserDealInteraction $userDealInteraction): self
+    {
+        if ($this->userDealInteractions->removeElement($userDealInteraction)) {
+            // set the owning side to null (unless already changed)
+            if ($userDealInteraction->getDeal() === $this) {
+                $userDealInteraction->setDeal(null);
+            }
+        }
 
         return $this;
     }

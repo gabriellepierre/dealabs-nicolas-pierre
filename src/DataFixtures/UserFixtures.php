@@ -17,7 +17,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        for($i=1; $i<=5; $i++){
+        for($i=1; $i<=7; $i++){
             $user = new User();
             $user->setUsername("username".$i)
                 ->setEmail("email".$i."@com")

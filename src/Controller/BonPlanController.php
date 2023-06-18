@@ -48,10 +48,6 @@ class BonPlanController extends AbstractController
             $bonPlan->setPostePar($this->getUser());
             $bonPlan->setDatePublication(new DateTime('now'));
 
-            if($bonPlan->getDegreAttractivite() == null){
-                $bonPlan->setDegreAttractivite(0);
-            }
-
             $this->manager->persist($bonPlan);
             $this->manager->flush();
             return $this->redirectToRoute('home');

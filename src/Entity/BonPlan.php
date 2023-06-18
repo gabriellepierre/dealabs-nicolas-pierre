@@ -8,11 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: BonPlanRepository::class)]
 class BonPlan extends Deal
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(nullable: true)]
     private ?float $prixHabituel = null;
 
@@ -21,12 +16,7 @@ class BonPlan extends Deal
 
     #[ORM\Column(nullable: true)]
     private ?float $fraisLivraison = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
+    
     public function getPrixHabituel(): ?float
     {
         return $this->prixHabituel;

@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        {# <a href="#"> #}
+            <!-- Item-->
+            <div class="d-flex justify-content-start my-2 p-3 border">
+                <div>
+                    {# {{ deal.images | first }} #}
+                    <img class="rounded-2" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png"/>
+                </div>
+                
+                <div class="p-2 w-100">
+                    <div class="d-flex justify-content-between pb-2">
+
+                        {# Degrés d'attractivité #}
+                        <div class="d-inline-flex border border-secondary rounded">
+
+                            {% set classBtnLike = "outline-" %}
+                            {% set classBtnDislike = "outline-" %}
+
+                            {% if app.user is not null %}
+                                {% set liked = (deal).getUserDealInteraction(app.user).liked %}
+                                {% if liked == -1 %}
+                                    {% set classBtnDislike = "" %}
+                                {% elseif liked == 1 %}
+                                    {% set classBtnLike = "" %}
+                                {% endif %}
+                            {% endif %}
+
+                            <a role="button" class="btn btn-{{ classBtnDislike }}primary btn-sm border-0" href="{{ path('deal_dislike', {'idDeal': deal.id }) }}">-</a>
+                            <div class="p-1">
+                                <span class="text-danger"><strong>{{ deal.degreAttractivite }}°</strong></span>
+                            </div>
+                            <a role="button" class="btn btn-{{ classBtnLike }}danger btn-sm border-0" href="{{ path('deal_like', {'idDeal': deal.id }) }}">+</a>
+                        </div>
+
+                        <div>
+                            {% if deal.dateExpiration is not null %}
+                                <span class="text-secondary"><i class="bi bi-hourglass-bottom"></i> Expire le {{ deal.dateExpiration|date("d/m/Y") }}</span>
+                            {% endif %}
+                            <span class="text-secondary"><i class="bi bi-activity"></i> Posté le {{ deal.datePublication|date("d M") }}</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        {% if deal is instanceOf("App\\Entity\\BonPlan") %}
+                            {{ include("bonPlan/_case-bon-plan.html.twig") }}
+                        {% elseif deal is instanceOf("App\\Entity\\CodePromo") %}
+                            {{ include("codePromo/_case-code-promo.html.twig") }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {# </a> #}
+    </div>
+</div>

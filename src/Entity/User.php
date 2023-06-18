@@ -36,9 +36,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'postePar', targetEntity: Deal::class)]
     private Collection $deals;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserDealInteraction::class, orphanRemoval: true)]
+    private Collection $userDealInteractions;
+
     public function __construct()
     {
         $this->deals = new ArrayCollection();
+        $this->userDealInteractions = new ArrayCollection();
     }
 
 
@@ -160,6 +164,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($deal->getPostePar() === $this) {
                 $deal->setPostePar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserDealInteraction>
+     */
+    public function getUserDealInteractions(): Collection
+    {
+        return $this->userDealInteractions;
+    }
+
+    public function addUserDealInteraction(UserDealInteraction $userDealInteraction): self
+    {
+        if (!$this->userDealInteractions->contains($userDealInteraction)) {
+            $this->userDealInteractions->add($userDealInteraction);
+            $userDealInteraction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserDealInteraction(UserDealInteraction $userDealInteraction): self
+    {
+        if ($this->userDealInteractions->removeElement($userDealInteraction)) {
+            // set the owning side to null (unless already changed)
+            if ($userDealInteraction->getUser() === $this) {
+                $userDealInteraction->setUser(null);
             }
         }
 
