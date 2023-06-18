@@ -8,6 +8,7 @@
         {% endblock %}</title>
         
         <link rel="icon" href="">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -24,41 +25,45 @@
 
     <body>
         {% block navbar %}
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="h-100">
-                    <a class="navbar-brand" href="{{ path('home') }}">
-                        <img class="h-100" src="/images/dealabs-nav-logo.png" alt="Dealabs">
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('bonPlan_index') }}">Bons plans</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('codePromo_index') }}">Code promo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Gratuit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Discussions</a>
-                        </li>
-
-                        {# <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Menu
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-10">
+                <!-- <div class="w-25">
+                            <a class="nav-logo" href="{{ path('home') }}">
+                                <img class="h-75 w-75" src="/images/dealabs-nav-logo.png" alt="Dealabs">
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li> #}
+                        </div> -->
+                <div class="collapse navbar-collapse d-flex justify-content-between ">
+                        <ul class="navbar-nav pl-10 d-flex align-items-center w-50">
+                            <li class="nav-item w-25">
+                                <a href="{{ path('home') }}"><img class="w-100 h-100" src="/images/dealabs-nav-logo.png" alt="Dealabs"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="font-size: 14px;" href="{{ path('bonPlan_index') }}">Bons plans</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="font-size: 14px;" href="{{ path('codePromo_index') }}">Code promo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="font-size: 14px;" href="#">Gratuit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="font-size: 14px;" href="#">Discussions</a>
+                            </li>
 
-                        <li>
+                            {# <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="font-size: 14px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Menu
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li> #}
+                        </ul>
+
+                    <ul class="navbar-nav">
+                        <li class="mr-2rem">
                             <div class="input-group">
                                 <span class="input-group-prepend">
                                     <div class="input-group-text"><i class="bi bi-search"></i></div>
@@ -66,25 +71,24 @@
                                 <input class="form-control" type="search" placeholder="Recherche...">
                             </div>
                         </li>
-
                         
                         {% if app.user %}
                             <li class="nav-item">
-                                <a href="{{ path('security_logout') }}" class="btn btn-secondary">
+                                <a href="{{ path('security_logout') }}" class="btn btn-secondary" style="font-size: 14px;">
                                     <i class="bi bi-box-arrow-right"></i>
                                     Déconnexion
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('user_account') }}" class="btn btn-secondary">
+                                <a href="{{ path('user_account') }}" class="btn btn-secondary" style="font-size: 14px;">
                                     <i class="bi bi-person"></i>
                                     Mon compte
                                 </a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a href="{{ path('security_login') }}" class="btn btn-secondary">
-                                    <i class="bi bi-person"></i>
+                                <a href="{{ path('security_login') }}" class="btn btn-secondary fw-bold" style="font-size: 14px;">
+                                    <i class="bi bi-person "></i>
                                     Connexion
                                 </a>
                             </li>
@@ -92,8 +96,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ path('bonPlan_add') }}" class="btn btn-info">
-                                <i class="bi bi-plus-lg"></i> Poster...
+                            <a href="{{ path('bonPlan_add') }}" class="btn btn-info text-white fw-bold" style="font-size: 14px;">
+                                <i class="fas fa-plus fw-bold"></i> Poster...
                             </a>
                         </li>
                     </ul>
