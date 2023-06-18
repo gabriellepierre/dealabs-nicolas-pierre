@@ -83,6 +83,17 @@ abstract class Deal
         return null;
     }
 
+    public function getCommentaires(): array
+    {
+        $commentaires = [];
+        foreach($this->userDealInteractions as $interaction){
+            foreach($interaction->getCommentaires() as $commentaire){
+                $commentaires[] = $commentaire;
+            }
+        }
+        return $commentaires;
+    }
+
 
 
     public function getId(): ?int

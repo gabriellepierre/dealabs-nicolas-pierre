@@ -1,11 +1,12 @@
 <div class="container">
     <div class="row">
-        {# <a href="#"> #}
             <!-- Item-->
             <div class="d-flex justify-content-start my-2 p-3 border">
                 <div>
                     {# {{ deal.images | first }} #}
-                    <img class="rounded-2" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png"/>
+                    <a href="{{ path('deal_details', {'idDeal': deal.id}) }}">
+                        <img class="rounded-2" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png"/>
+                    </a>
                 </div>
                 
                 <div class="p-2 w-100">
@@ -49,8 +50,16 @@
                             {{ include("codePromo/_case-code-promo.html.twig") }}
                         {% endif %}
                     </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span><strong>{{ deal.postePar }}</strong></span>
+                        <a role="button" class="btn btn-outline-light btn-sm border border-secondary rounded text-secondary" 
+                                href="{{ path('deal_details', {'idDeal': deal.id }) }}">
+                            <i class="bi bi-chat-left"></i>
+                            {{ deal.commentaires|length }}
+                        </a>
+                    </div>
                 </div>
             </div>
-        {# </a> #}
     </div>
 </div>

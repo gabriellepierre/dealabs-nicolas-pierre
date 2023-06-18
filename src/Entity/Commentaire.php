@@ -21,6 +21,13 @@ class Commentaire
     #[ORM\JoinColumn(nullable: false)]
     private ?UserDealInteraction $userDealInteraction = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $datePublication = null;
+
+    public function __construct(UserDealInteraction $userDealInteraction){
+        $this->userDealInteraction = $userDealInteraction;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +53,18 @@ class Commentaire
     public function setUserDealInteraction(?UserDealInteraction $userDealInteraction): self
     {
         $this->userDealInteraction = $userDealInteraction;
+
+        return $this;
+    }
+
+    public function getDatePublication(): ?\DateTimeInterface
+    {
+        return $this->datePublication;
+    }
+
+    public function setDatePublication(\DateTimeInterface $datePublication): self
+    {
+        $this->datePublication = $datePublication;
 
         return $this;
     }

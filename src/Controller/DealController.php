@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Deal;
 use App\Entity\User;
 use App\Entity\UserDealInteraction;
@@ -34,17 +35,31 @@ class DealController extends AbstractController
         ]);
     }
 
-    #[Route('/deal/like/{idDeal}', name: 'deal_like')]
+    #[Route('/deal/{idDeal}/like', name: 'deal_like')]
     public function like(Request $request, int $idDeal): Response
     {
         return $this->manageLiked($request, $idDeal, 1);
     }
 
-    #[Route('/deal/dislike/{idDeal}', name: 'deal_dislike')]
+    #[Route('/deal/{idDeal}/dislike', name: 'deal_dislike')]
     public function dislike(Request $request, int $idDeal): Response
     {
         return $this->manageLiked($request, $idDeal, -1);
     }
+
+    #[Route('/deal/{idDeal}', name: 'deal_details')]
+    public function details(int $idDeal): Response
+    {
+        $deal = $this->manager->getRepository(Deal::class)->find($idDeal);
+        return $this->render('deal/details.html.twig', [
+            "deal" => $deal,
+            "commentaires" => $this->manager->getRepository(Commentaire::class)->getCommentairesTries($idDeal),
+        ]);
+    }
+
+
+
+
 
     private function manageLiked(Request $request, int $idDeal, int $value): Response
     {

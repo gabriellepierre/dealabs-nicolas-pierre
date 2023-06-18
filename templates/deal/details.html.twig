@@ -1,0 +1,26 @@
+{% extends '_layout/base.html.twig' %}
+
+{% set titre = deal.titre ~ " - Commentaires" %}
+
+{% block body %}
+
+     <div>
+          {{ include('deal/_case-deal.html.twig') }}
+     </div>
+
+     <div>
+          {% for commentaire in commentaires %}
+               <div>
+                    <div>
+                         {{ commentaire.userDealInteraction.user }}
+                    </div>
+                    <div>
+                         {{ commentaire.datePublication|date("d/m/Y") }}
+                    </div>
+                    <div>
+                         {{ commentaire.commentaire }}
+                    </div>
+               </div>
+          {% endfor %}
+     </div>
+{% endblock %}
