@@ -4,23 +4,92 @@
 
 {% block body %}
 
-     <div>
-          {{ include('deal/_case-deal.html.twig') }}
-     </div>
+     <div class="container">
+          <div class="card bg-white mt-2">
+               <div class="alert alert-info m-3 d-flex justify-content-center" role="alert">
+                    <i class="bi bi-clock text-dark px-2"></i>  Ce deal expire le <strong> {{ deal.dateExpiration|date("d/m/Y") }} </strong>
+               </div>
+               <div class="d-flex justify-content-start mb-2 p-3">
+                    <div class="w-50 d-flex align-items-center justify-content-center">
+                         {# {{ deal.images | first }} #}
+                             <img class="rounded-2 w-50" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png"/>
 
-     <div>
-          {% for commentaire in commentaires %}
-               <div>
-                    <div>
-                         {{ commentaire.userDealInteraction.user }}
-                    </div>
-                    <div>
-                         {{ commentaire.datePublication|date("d/m/Y") }}
-                    </div>
-                    <div>
-                         {{ commentaire.commentaire }}
+                     </div>
+                     
+                     <div class="p-2 w-50">
+                         <div class="d-flex justify-content-between pb-2">
+                              <div>
+                                   {# Degrés d'attractivité #}
+                                   <div class="d-inline-flex border border-secondary rounded mb-4">
+               
+                                        {% set classBtnLike = "outline-" %}
+                                        {% set classBtnDislike = "outline-" %}
+               
+                                        {% if app.user is not null %}
+                                             {% set liked = (deal).getUserDealInteraction(app.user).liked %}
+                                             {% if liked == -1 %}
+                                                  {% set classBtnDislike = "" %}
+                                             {% elseif liked == 1 %}
+                                                  {% set classBtnLike = "" %}
+                                             {% endif %}
+                                        {% endif %}
+               
+                                        <a role="button" class="btn btn-{{ classBtnDislike }}primary btn-sm border-0" href="{{ path('deal_dislike', {'idDeal': deal.id }) }}">-</a>
+                                        <div class="p-1">
+                                             <span class="text-danger"><strong>{{ deal.degreAttractivite }}°</strong></span>
+                                        </div>
+                                        <a role="button" class="btn btn-{{ classBtnLike }}danger btn-sm border-0" href="{{ path('deal_like', {'idDeal': deal.id }) }}">+</a>
+                                   </div>
+
+                                   <div class="mb-2">
+                                        <span class="text-secondary"> Posté le {{ deal.datePublication|date("d M") }}</span>
+                                   </div>
+
+                                   <div class="mb-4">
+                                        {% if deal is instanceOf("App\\Entity\\BonPlan") %}
+                                            {{ include("bonPlan/_case-bon-plan.html.twig") }}
+                                        {% elseif deal is instanceOf("App\\Entity\\CodePromo") %}
+                                            {{ include("codePromo/_case-code-promo.html.twig") }}
+                                        {% endif %}
+                                    </div>
+                                        
+                                   <span><strong>{{ deal.postePar }}</strong></span>
+                              </div>
+
+                             <div class="d-flex justify-content-between h-25">
+                                   <a role="button" class="btn btn-outline-light btn-sm rounded text-secondary" 
+                                        href="{{ path('deal_details', {'idDeal': deal.id }) }}">
+                                   <i class="bi bi-chat-left"></i>
+                                   {{ deal.commentaires|length }}
+                                   </a>
+                              </div>
+                         </div>
                     </div>
                </div>
-          {% endfor %}
+          </div>
+
+          <div>
+               <div class="title my-4">
+                    <h2 class="h5">
+                         {{ deal.commentaires|length }} commentaires :
+                    </h2>
+               </div>
+               {% for commentaire in commentaires %}
+                    <div class="card my-3">
+                         <div class="card-header bg-white">
+                              <div class="h6">
+                                   {{ commentaire.userDealInteraction.user }}
+                              </div>
+
+                              <div class="text-secondary">
+                                   {{ commentaire.datePublication|date("d/m/Y") }}
+                              </div>
+                         </div>
+                         <div class="card-body">
+                              {{ commentaire.commentaire }}
+                         </div>
+                    </div>
+               {% endfor %}
+          </div>
      </div>
 {% endblock %}
