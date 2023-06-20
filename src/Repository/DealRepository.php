@@ -48,4 +48,28 @@ class DealRepository extends ServiceEntityRepository
             ->orderBy("deal.datePublication","ASC");
         return $query->getQuery()->getResult();
     }
+
+    public function getNewDealsTries()
+    {
+        $query = $this->createQueryBuilder('deal');
+        $query->orderBy("deal.datePublication","ASC");
+        return $query->getQuery()->getResult();
+    }
+
+    /* public function getDealsCommentesTries()
+    {
+        $query = $this->createQueryBuilder('deal');
+        $query->join("deal.userDealInteraction",'i')
+            ->where("i.commentaire > 1")
+            ->orderBy("deal.datePublication","ASC")
+            ->setParameter("countDeals", $this->countDealsCommentes());
+        return $query->getQuery()->getResult();
+    }
+
+    private function countDealsCommentes()
+    {
+        $query = $this->createQueryBuilder('userDealInteraction');
+        $query->select("COUNT(userDealInteraction.commentaires)");
+        return $query->getQuery()->getResult();
+    } */
 }

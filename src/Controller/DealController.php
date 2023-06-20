@@ -34,6 +34,22 @@ class DealController extends AbstractController
             "deals" => $this->manager->getRepository(Deal::class)->getHotDealsTries(),
         ]);
     }
+    
+    #[Route('/deal/new', name: 'deal_new')]
+    public function new(): Response
+    {
+        return $this->render('deal/index.html.twig', [
+            "deals" => $this->manager->getRepository(Deal::class)->getNewDealsTries(),
+        ]);
+    }
+
+    /* #[Route('/deal/commentes', name: 'deal_commentes')]
+    public function commentes(): Response
+    {
+        return $this->render('deal/index.html.twig', [
+            "deals" => $this->manager->getRepository(Deal::class)->getDealsCommentesTries(),
+        ]);
+    } */
 
     #[Route('/deal/{idDeal}/like', name: 'deal_like')]
     public function like(Request $request, int $idDeal): Response
