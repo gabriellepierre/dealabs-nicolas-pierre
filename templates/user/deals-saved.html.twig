@@ -4,5 +4,7 @@
 {% set titre = "Mes deals sauvegardés" %}
 
 {% block body %}
-     
+     {% for deal in deals %}
+          {{ include('deal/_case-deal.html.twig') }}
+     {% endfor %}
 {% endblock %}

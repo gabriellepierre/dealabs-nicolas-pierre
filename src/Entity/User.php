@@ -55,6 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
+    public function getDealsSaved(): array
+    {
+        $dealsSaved = [];
+        foreach($this->getUserDealInteractions() as $interaction){
+            if($interaction->isDealSaved()){
+                $dealsSaved[] = $interaction->getDeal();
+            }
+        }
+        return $dealsSaved;
+    }
+
 
 
 
