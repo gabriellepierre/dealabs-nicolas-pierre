@@ -36,6 +36,9 @@ class UserDealInteraction
     #[ORM\OneToMany(mappedBy: 'userDealInteraction', targetEntity: Commentaire::class, orphanRemoval: true)]
     private Collection $commentaires;
 
+    #[ORM\Column]
+    private ?bool $dealSaved = false;
+
     public function __construct(User $user, Deal $deal)
     {
         $this->user = $user;
@@ -113,6 +116,18 @@ class UserDealInteraction
                 $commentaire->setUserDealInteraction(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDealSaved(): ?bool
+    {
+        return $this->dealSaved;
+    }
+
+    public function setDealSaved(bool $dealSaved): self
+    {
+        $this->dealSaved = $dealSaved;
 
         return $this;
     }

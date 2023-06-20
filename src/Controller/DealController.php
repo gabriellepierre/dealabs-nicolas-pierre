@@ -73,6 +73,29 @@ class DealController extends AbstractController
         ]);
     }
 
+    #[Route('/deal/saved/{idDeal}', name: 'deal_saved')]
+    public function saved(Request $request, int $idDeal): Response
+    {
+        $user = $this->getUser();
+        //Check si l'utilisateur c'est connecté
+        if($user != null){
+
+            $deal = $this->manager->getRepository(Deal::class)->find($idDeal);
+            $interaction = $this->manager->getRepository(UserDealInteraction::class)->findOneBy(["user" => $user, "deal" => $deal]);
+            //Si l'utilisateur n'a toujours pas intéragi avec ce deal
+            if($interaction == null){
+                $interaction = new UserDealInteraction($user,$deal);
+                $this->manager->persist($interaction);
+            }
+
+            $interaction->setDealSaved(!$interaction->isDealSaved());
+
+            $this->manager->flush();
+            return $this->redirect($request->headers->get("referer"));
+        }
+        return $this->redirectToRoute('security_login'); 
+    }
+
 
 
 
