@@ -53,8 +53,9 @@ class CodePromoController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('codePromo/add.html.twig', [
-            'form' => $form->createView()
+        return $this->render('deal/form_add.html.twig', [
+            'form' => $form->createView(),
+            'entityName' => "code promo",
         ]);
     }
 }

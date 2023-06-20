@@ -53,8 +53,9 @@ class BonPlanController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('bonPlan/add.html.twig', [
-            'form' => $form->createView()
+        return $this->render('deal/form_add.html.twig', [
+            'form' => $form->createView(),
+            'entityName' => "bon plan",
         ]);
     }
 }
