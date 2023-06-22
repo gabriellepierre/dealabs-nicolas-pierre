@@ -74,14 +74,15 @@
                          {{ deal.commentaires|length }} commentaires :
                     </h2>
                </div>
-               <div class="card bg-white p-3">
-                    {# <div class="card-header bg-secondary">
-                         <i 
-                    </div> #}
-                    <form action="{{ path('deal_comment', {'idDeal': deal.id }) }}" method="post" class="form-signin d-flex flex-column gap-2">
+               <div class="card bg-white">
+                    <div class="card-header bg-light d-flex gap-2 text-secondary fw-bold">
+                         <i class="bi bi-chat-left"></i>
+                         <span>Ecrire un commentaire</span>
+                    </div>
+                    <form action="{{ path('deal_comment', {'idDeal': deal.id }) }}" method="post" class="form-signin d-flex flex-column gap-2 justify-content-center p-3">
                          <input type="text" class="form-control" placeholder="Ecrire un commentaire" name="comment" id="commentValue" />
 
-                         <button class="btn btn-primary w-50" type="submit">
+                         <button class="btn btn-primary w-50 align-self-center" type="submit">
                               Poster le commentaire
                           </button>
                     </form>
