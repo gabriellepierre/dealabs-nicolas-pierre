@@ -43,13 +43,13 @@ class DealController extends AbstractController
         ]);
     }
 
-    /* #[Route('/deal/commentes', name: 'deal_commentes')]
-    public function commentes(): Response
-    {
-        return $this->render('deal/index.html.twig', [
-            "deals" => $this->manager->getRepository(Deal::class)->getDealsCommentesTries(),
-        ]);
-    } */
+    // #[Route('/deal/commentes', name: 'deal_commentes')]
+    // public function commentes(): Response
+    // {
+    //     return $this->render('deal/index.html.twig', [
+    //         "deals" => $this->manager->getRepository(Deal::class)->getDealsCommentesTries(),
+    //     ]);
+    // }
 
     #[Route('/deal/{idDeal}/like', name: 'deal_like')]
     public function like(Request $request, int $idDeal): Response
@@ -97,7 +97,16 @@ class DealController extends AbstractController
     }
 
 
+    #[Route('/deal/{idDeal}/comment', name: 'deal_comment')]
+    public function comment(Request $request, int $idDeal): Response
+    {
+        if ($request->isMethod('POST')) {
+            $value = $request->request->get('comment');
 
+            return $this->manageComment($request, $idDeal, $value);
+        }
+       
+    }
 
 
     private function manageLiked(Request $request, int $idDeal, int $value): Response
@@ -121,6 +130,30 @@ class DealController extends AbstractController
                 //Si l'utilisateur avait déjà intéragi avec ce deal MAIS que la valeur est la même qu'enregistrée 
                 $interaction->setLiked(0);
             }
+            $this->manager->flush();
+            return $this->redirect($request->headers->get("referer"));
+        }
+        return $this->redirectToRoute('security_login'); 
+    }
+
+    private function manageComment(Request $request, int $idDeal, string $value): Response
+    {
+        $user = $this->getUser();
+        //Check si l'utilisateur c'est connecté
+        if($user != null){
+            $deal = $this->manager->getRepository(Deal::class)->find($idDeal);
+
+            $interaction = $this->manager->getRepository(UserDealInteraction::class)->findOneBy(["user" => $user, "deal" => $deal]);
+                //Si l'utilisateur n'a toujours pas intéragi avec ce deal
+                if($interaction == null){
+                    $interaction = new UserDealInteraction($user,$deal);
+                    $this->manager->persist($interaction);
+                }
+                // Un fois que l'intéraction existe, on set le commentaire
+                $comment = new Commentaire($interaction);
+                $comment->setCommentaire($value);
+
+                $interaction->addCommentaire($comment); 
             $this->manager->flush();
             return $this->redirect($request->headers->get("referer"));
         }

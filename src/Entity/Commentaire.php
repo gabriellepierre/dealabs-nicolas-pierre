@@ -26,6 +26,7 @@ class Commentaire
 
     public function __construct(UserDealInteraction $userDealInteraction){
         $this->userDealInteraction = $userDealInteraction;
+        $this->datePublication = new \DateTime("now");
     }
     
     public function getId(): ?int

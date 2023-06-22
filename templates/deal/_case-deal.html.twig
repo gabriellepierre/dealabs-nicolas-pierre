@@ -19,11 +19,17 @@
                             {% set classBtnDislike = "outline-" %}
 
                             {% if app.user is not null %}
-                                {% set liked = (deal).getUserDealInteraction(app.user).liked %}
-                                {% if liked == -1 %}
-                                    {% set classBtnDislike = "" %}
-                                {% elseif liked == 1 %}
-                                    {% set classBtnLike = "" %}
+
+
+                                {% set interaction = (deal).getUserDealInteraction(app.user) %}
+
+                                {% if interaction is not null %}           
+                                    {% set liked = interaction.liked %}
+                                    {% if liked == -1 %}
+                                        {% set classBtnDislike = "" %}
+                                    {% elseif liked == 1 %}
+                                        {% set classBtnLike = "" %}
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
 
@@ -60,9 +66,14 @@
                         
                             {% set classBtnDealSaved = "" %}
                             {% if app.user is not null %}
-                                {% if (deal).getUserDealInteraction(app.user).dealSaved %}
-                                    {% set classBtnDealSaved = "-fill" %}
-                                {% endif %}
+
+                                {% set interaction = (deal).getUserDealInteraction(app.user) %}
+
+                                    {% if interaction is not null %}
+                                        {% if interaction.dealSaved %}
+                                            {% set classBtnDealSaved = "-fill" %}
+                                        {% endif %}
+                                    {% endif %}
                             {% endif %}
                             <a role="button" class="btn btn-outline-light btn-sm border border-secondary rounded text-secondary" 
                                     href="{{ path('deal_saved', {'idDeal': deal.id }) }}">

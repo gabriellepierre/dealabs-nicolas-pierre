@@ -33,7 +33,9 @@ class UserDealInteraction
     #[ORM\Column]
     private int $liked = 0;
 
-    #[ORM\OneToMany(mappedBy: 'userDealInteraction', targetEntity: Commentaire::class, orphanRemoval: true)]
+    
+    #[ORM\OneToMany(mappedBy:"userDealInteraction", targetEntity:Commentaire::class, orphanRemoval:true, cascade:["persist"])]
+     
     private Collection $commentaires;
 
     #[ORM\Column]
@@ -104,7 +106,7 @@ class UserDealInteraction
             $this->commentaires->add($commentaire);
             $commentaire->setUserDealInteraction($this);
         }
-
+        
         return $this;
     }
 
