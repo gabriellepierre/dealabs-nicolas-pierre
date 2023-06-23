@@ -72,10 +72,17 @@
                     <ul class="navbar-nav d-flex gap-2">
                         <li class="mr-2rem">
                             <div class="input-group">
-                                <span class="input-group-prepend">
-                                    <div class="input-group-text"><i class="bi bi-search"></i></div>
-                                </span>
-                                <input class="form-control" type="search" placeholder="Recherche...">
+                                
+                                <form action="{{ path('search_deal', {'type': 'deal' }) }}" method="POST">
+    
+                                    <input type="search" class="form-control" placeholder="Rechercher" name="term" id="term" />
+                                    {# <button type="submit">
+                                        <span class="input-group-prepend">
+                                            <div class="input-group-text"><i class="bi bi-search"></i></div>
+                                        </span>
+                                    </button> #}
+                                    
+                                </form>
                             </div>
                         </li>
                         
@@ -125,6 +132,8 @@
                         {{ include('_layout/_sub-codePromo.html.twig') }}
                     {% elseif subnavbarBonPlan is defined %}
                         {{ include('_layout/_sub-bonPlan.html.twig') }}
+                    {% elseif subnavbarSearch is defined %}
+                        {{ include('_layout/_sub-search.html.twig') }}
                     {% endif %}
                 </ul>
             </nav>

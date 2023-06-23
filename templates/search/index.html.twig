@@ -1,0 +1,22 @@
+{% extends '_layout/base.html.twig' %}
+{% set subnavbarSearch = true %}
+
+{% set titre = "Recherche" %}
+
+{% block body %}
+
+    {% if term %}
+
+        <h2 class="h4 m-4">Résultats pour "{{ term }}" ({{count}}):</h2>
+
+        {% if results %}
+            <ul>
+                {% for deal in results %}
+                    {{ include('deal/_case-deal.html.twig') }}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="ml-4">Aucun résultat trouvé.</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -56,6 +56,16 @@ class DealRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function findByTitleOrDescription($term)
+    {
+        $query = $this->createQueryBuilder('d')
+            ->where('d.titre LIKE :term OR d.description LIKE :term')
+            ->setParameter('term', '%'.$term.'%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     /* public function getDealsCommentesTries()
     {
         $query = $this->createQueryBuilder('deal');

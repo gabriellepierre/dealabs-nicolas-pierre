@@ -43,14 +43,6 @@ class DealController extends AbstractController
         ]);
     }
 
-    // #[Route('/deal/commentes', name: 'deal_commentes')]
-    // public function commentes(): Response
-    // {
-    //     return $this->render('deal/index.html.twig', [
-    //         "deals" => $this->manager->getRepository(Deal::class)->getDealsCommentesTries(),
-    //     ]);
-    // }
-
     #[Route('/deal/{idDeal}/like', name: 'deal_like')]
     public function like(Request $request, int $idDeal): Response
     {
@@ -107,7 +99,6 @@ class DealController extends AbstractController
         }
        
     }
-
 
     private function manageLiked(Request $request, int $idDeal, int $value): Response
     {

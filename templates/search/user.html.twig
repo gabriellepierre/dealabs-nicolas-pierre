@@ -1,0 +1,24 @@
+{% extends '_layout/base.html.twig' %}
+{% set subnavbarSearch = true %}
+
+{% set titre = "Recherche" %}
+
+{% block body %}
+
+    {% if term %}
+
+        <h2>Résultats pour "{{ term }}" ({{ count }}):</h2>
+
+        {% if results %}
+            <ul>
+                {% for user in results %}
+                    <li>{{ user.username }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun résultat trouvé.</p>
+        {% endif %}
+    {% else %}
+        <p>Aucune recherche.</p>
+    {% endif %}
+{% endblock %}
