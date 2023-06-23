@@ -42,6 +42,8 @@ ATTENTION : la totalité des commandes suivantes sont à réaliser dans bash (à
 
 # Mise en place de la base de donnée
 
+ATTENTION : la totalité des commandes suivantes sont à réaliser dans bash
+
 ### Avant de faire les migrations :
 
 Créez à la main un dossier "migrations" à la racine du projet
@@ -76,11 +78,12 @@ http://localhost:8081/
 
 Il existe 5 utilisateurs.
 
-- username1,
-- username2,
-- username3,
-- username4,
+- username1
+- username2
+- username3
+- username4
 - username5
 
 pour chacun de ces utilisateurs, le mot de passe est : `test`
-Seul le username1 a posté des deals.
+
+> Seul le username1 a posté des deals.
