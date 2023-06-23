@@ -2,7 +2,36 @@
 {% set subnavbarAccount = true %}
 
 {% set titre = "Mon compte" %}
+{% set jsEntries = ["deleteAccount"] %}
 
 {% block body %}
-     
+    <div>
+        <h5>Votre avatar</h5>
+        {{ user.photoProfil }}
+    </div>
+    <div>
+        <h5>Votre pseudonyme</h5>
+        {{ user.username }}
+    </div>
+    <div>
+        <h5>Votre description</h5>
+        {{ user.description }}
+    </div>
+    <div>
+        <h5>Votre adresse e-mail associée</h5>
+        {{ user.email }}
+    </div>
+    {# <div>
+        <h5>Définir un mot de passe</h5>
+
+    </div> #}
+
+
+
+    <div>
+        <h5>Supprimer mon compte</h5>
+        <a role="button" class="btn btn-danger rounded delete-account-link" href="{{ path('user_deleteAccount') }}">
+            Supprimer mon compte
+        </a>
+    </div>
 {% endblock %}

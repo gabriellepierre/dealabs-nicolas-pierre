@@ -66,6 +66,8 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
+
+    .addEntry('deleteAccount','./public/js/deleteAccountAJAX.js')
 ;
 
 module.exports = Encore.getWebpackConfig();

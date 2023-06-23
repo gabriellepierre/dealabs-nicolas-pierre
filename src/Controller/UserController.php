@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Deal;
-use App\Entity\UserDealInteraction;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/user', name: 'user_')]
@@ -20,7 +22,9 @@ class UserController extends AbstractController
     #[Route('/account', name: 'account')]
     public function index(): Response
     {
-        return $this->render('user/account.html.twig');
+        return $this->render('user/account.html.twig', [
+            "user" => $this->getUser(),
+        ]);
     }
 
     #[Route('/deals', name: 'deals')]
@@ -45,5 +49,26 @@ class UserController extends AbstractController
     public function alerts(): Response
     {
         return $this->render('user/alerts.html.twig');
+    }
+
+    #[Route('/deleteAccount', name: 'deleteAccount')]
+    public function deleteAccount(Request $request): Response
+    {
+        if($request->isXmlHttpRequest()){
+            $user = $this->getUser();
+            $uuid = Uuid::v4();
+            $user->setUsername("PS-" . $uuid)
+                ->setEmail("PS-" . $uuid)
+                ->setPassword(null)
+                ->setPhotoProfil(null)   
+                ->setDescription(null)
+            ;
+
+            $this->manager->persist($user);
+            $this->manager->flush();
+            
+            return new JsonResponse(['redirect' => $this->generateUrl('security_logout')]);
+        }
+        return new JsonResponse(['redirect' => $this->generateUrl('user_account')]); 
     }
 }

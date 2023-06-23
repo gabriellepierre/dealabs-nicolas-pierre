@@ -15,6 +15,13 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+
+            {% if jsEntries is defined %}
+                {% for jsEntry in jsEntries %}
+                    {# <script src="{{ asset(script) }}" type="text/javascript"></script> #}
+                    {{ encore_entry_script_tags(jsEntry) }}
+                {% endfor %}
+            {% endif %}
         {% endblock %}
 
         {% if form is defined %}

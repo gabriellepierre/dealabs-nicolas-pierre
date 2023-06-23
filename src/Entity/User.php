@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -27,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, unique: true)]
@@ -38,6 +39,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserDealInteraction::class, orphanRemoval: true)]
     private Collection $userDealInteractions;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Image $photoProfil = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -118,12 +125,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -207,6 +214,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userDealInteraction->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhotoProfil(): ?Image
+    {
+        return $this->photoProfil;
+    }
+
+    public function setPhotoProfil(?Image $photoProfil): self
+    {
+        $this->photoProfil = $photoProfil;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
