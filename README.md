@@ -1,56 +1,64 @@
 # dealabs-nicolas-pierre
 
-Le tableur avec nos réalisations se trouve dans /public/consignes
+<pre><code>Le tableur avec nos réalisations se trouve dans /public/consignes</code></pre>
 
-# Générer les dossiers "vendor" et "var" :
+## Cloner le repo
 
-composer install
-
-# Générer le dossier "node_modules" :
-
-npm install
-
-# ou
-
-yarn install
-
-<!--  -->
-
-# Afficher les modifications en JS :
-
-npm run watch
-
-<!--  -->
-
-# Lancement du projet SANS DOCKER :
-
-php -S localhost:8000 -t public
+git@github.com:gabriellepierre/dealabs-nicolas-pierre.git
 
 # Lancer docker :
 
-docker-compose build
-docker-compose up
+<!-- Attention, il faut s'assurer qu'il n'y a pas de dossier /data dans le dossier .docker/ -->
 
-# Utiliser PHP :
+`docker-compose build`
 
-docker exec -it -u root lpa_sf6_php bash
+`docker-compose up`
 
-<!--  -->
+## Utiliser PHP :
 
-# Création de la base de données :
+`docker exec -it -u root lpa_sf6_php bash`
 
-> php bin/console d:d:c
+# Mise en place de l'environnement de dev
 
-# Puis
+### Générer les dossiers "vendor" et "var" :
 
-> php bin/console make:migration
+`composer install`
 
-# Puis
+### Générer le dossier "node_modules" :
 
-> php bin/console d:m:m
+`yarn install`
 
-# Charger les fixtures :
+### Mettre à jour les modifications en JS :
 
-> php bin/console doctrine:fixtures:load
+`yarn run watch`
 
-# Supprimer les migrations s'il y a des erreurs mais il faut refaire les 3 commandes précédentes pour regénérer le fichier de migrations.
+#### Avant de faire les migrations :
+
+Créez à la main un dossier "migrations" à la racine du projet
+
+### Création de la base de données :
+
+> `php bin/console d:d:c`
+> Il est possible qu'elle soit déjà créée, dans ce cas passez à l'étape suivante
+
+### Puis
+
+> `php bin/console make:migration`
+
+### Puis
+
+> `php bin/console d:m:m`
+
+### Charger les fixtures :
+
+> `php bin/console doctrine:fixtures:load`
+
+Bien entrer "yes" lorqu'il demande si on veut purger la DB
+
+# Pour se connecter
+
+Il existe 5 utilisateurs.
+
+> username1, username2, username3, username4, username5
+> pour chacun de ces utilisateurs, le mot de passe est : `test`
+> Seul le username1 a posté des deals.
