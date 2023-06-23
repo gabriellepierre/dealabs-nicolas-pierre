@@ -55,6 +55,10 @@ Créez à la main un dossier "migrations" à la racine du projet
 
 Bien entrer "yes" lorqu'il demande si on veut purger la DB
 
+# Lancer le projet
+
+localhost:8081
+
 # Pour se connecter
 
 Il existe 5 utilisateurs.
